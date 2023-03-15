@@ -98,7 +98,7 @@ class GithubHelper {
                     description: params.description,
                     owner: this.owner,
                     repo: this.repo,
-                    sha: this.sha,
+                    sha: params.sha || this.sha,
                     state: params.status,
                     target_url: params.url
                 });
@@ -174,6 +174,7 @@ exports.getInputs = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const paramsHelper = __importStar(__nccwpck_require__(7130));
 const STATUS_PARAM = 'status';
+const SHA_PARAM = 'sha';
 const TOKEN_PARAM = 'token';
 const URL_PARAM = 'url';
 const DESCRIPTION_PARAM = 'description';
@@ -204,6 +205,8 @@ function getInputs() {
         yield validateString(result.name, NAME_PARAM);
         const status = core.getInput(STATUS_PARAM);
         yield validateString(status, STATUS_PARAM);
+        result.sha = core.getInput(SHA_PARAM);
+        yield validateString(result.sha, SHA_PARAM);
         result.status = yield paramsHelper.getStatus(status);
         result.url = core.getInput(URL_PARAM) || '';
         result.description = core.getInput(DESCRIPTION_PARAM) || '';

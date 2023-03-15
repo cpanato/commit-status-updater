@@ -70,7 +70,7 @@ class GithubHelper {
         description: params.description,
         owner: this.owner,
         repo: this.repo,
-        sha: this.sha,
+        sha: params.sha || this.sha,
         state: params.status,
         target_url: params.url
       })
